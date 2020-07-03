@@ -86,8 +86,7 @@ namespace MainScraper
                     "streamable.com",
                     "clippituser.tv" };
 
-            //the following block throws multiple exceptions regarding SelfPost / LinkPost, and something to do with objects
-            //LinkPost throws exception when not checked against post.Listing.IsSelf?
+
             //rewrote to avoid LinkPost
             if (!post.Listing.IsSelf)
             {
