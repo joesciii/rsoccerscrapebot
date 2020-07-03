@@ -54,7 +54,7 @@ namespace MainScraper
 
 
 
-    // Event handler for handling monitored new posts as they come in. Filters down to relevant posts. 
+    // Event handler for handling monitored new posts as they come in. Filters down to relevant linkposts. 
     public static void C_NewPostsUpdated(object sender, PostsUpdateEventArgs e)
     {
         foreach (Post post in e.Added)
