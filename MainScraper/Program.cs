@@ -17,6 +17,7 @@ namespace MainScraper
     public static string newPostURL { get; set; }
     public static string newPostTitle { get; set; }
 
+
     //init new reddit client and begin monitoring subreddit
     static void Main(string[] args)
     {
