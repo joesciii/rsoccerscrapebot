@@ -12,8 +12,9 @@ namespace MainScraper
 {
     public class Program
     {
+    
     //global vars to be passed to discord bot
-    public static string stringToCheck { get; set; }
+    public static string stringToCheck = "";
     public static string newPostURL { get; set; }
     public static string newPostTitle { get; set; }
 

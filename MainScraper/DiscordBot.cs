@@ -8,7 +8,8 @@ namespace MainScraper
 {
     public class DiscordBot
     {
-        public static string OldURL { get; set; }
+        public static string OldURL = "";
+        
         //bot named _client
         private DiscordSocketClient _client;
         
@@ -24,26 +25,34 @@ namespace MainScraper
 
             await _client.StartAsync();
 
-            //send the message. currently doesn't run when required
-            if (OldURL != Program.newPostURL)
+            //client connected message
+            _client.Ready += () =>
+             ((ISocketMessageChannel)_client.GetChannel(728287924495319120)).SendMessageAsync("Connected");
+
+            //when ready, run Ready task
+            _client.Ready += Ready;
+
+            //Ready task runs until client disconnects. checks newPostURL against temporary OldURL
+            async Task Ready()
             {
-                _client.Ready += () =>
-                ((ISocketMessageChannel)_client.GetChannel(728287924495319120)).SendMessageAsync("New Goal: " + Program.newPostTitle + "   |   " + " URL: " + Program.newPostURL);
+                while (true)
+                {
+                    if (OldURL != Program.newPostURL)
+                    {
+                        await ((ISocketMessageChannel)_client.GetChannel(728287924495319120)).SendMessageAsync("**New Event: ** " + Program.newPostTitle + "   **|**   " + " **URL: ** " + Program.newPostURL);
+                    }
+
+                    OldURL = Program.newPostURL;
+                    
+                    //arbitrary
+                    System.Threading.Thread.Sleep(1000);
+                }
             }
 
-            OldURL = Program.newPostURL;
-
-            //continue running until closed
+            //run until close
             await Task.Delay(-1);
 
-
-
         }
-
-
-
-
-
 
     }
 }
