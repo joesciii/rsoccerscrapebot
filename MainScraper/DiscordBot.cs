@@ -39,11 +39,20 @@ namespace MainScraper
                 {
                     if (OldURL != Program.newPostURL)
                     {
-                        await ((ISocketMessageChannel)_client.GetChannel(728287924495319120)).SendMessageAsync("**New Event: ** " + Program.newPostTitle + "   **|**   " + " **URL: ** " + Program.newPostURL);
+                        EmbedBuilder embed = new EmbedBuilder
+                        {
+                            Title = Program.newPostTitle,
+                            Description = Program.newPostURL
+                        };
+                        if (OldURL != Program.newPostURL)
+                        {
+                            await ((ISocketMessageChannel)_client.GetChannel(728287924495319120)).SendMessageAsync(embed: embed.Build());
+                        }
+
                     }
 
                     OldURL = Program.newPostURL;
-                    
+
                     //arbitrary
                     System.Threading.Thread.Sleep(1000);
                 }
