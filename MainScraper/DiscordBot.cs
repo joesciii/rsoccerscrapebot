@@ -11,10 +11,10 @@ namespace MainScraper
     {
         public static string OldURL = "";
         
-        //bot named _client
+        // bot named _client
         private DiscordSocketClient _client;
         
-        //start new bot
+        // start new bot
         public static void RunBot()
           => new DiscordBot().StartAsync().GetAwaiter();
 
@@ -26,12 +26,12 @@ namespace MainScraper
 
             await _client.StartAsync();
 
-            //when ready, run Ready task
+            // when ready event fires, run Ready task
             _client.Ready += Ready;
 
-            //Ready task runs until client disconnects. checks newPostURL against temporary OldURL
-            //for some reason Ready task only runs as intended when the two functions are separated
-            //with nested if. assume due to async nature of SendMessage task.
+            // Ready task runs until client disconnects. checks newPostURL against temporary OldURL
+            // for some reason Ready task only runs as intended when the two functions are separated
+            // with nested if. assume due to async nature of SendMessage task.
             async Task Ready()
             {
                 Console.WriteLine("Discord bot connected...");
