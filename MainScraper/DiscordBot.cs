@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Discord;
 using Discord.WebSocket;
 
@@ -25,16 +26,15 @@ namespace MainScraper
 
             await _client.StartAsync();
 
-            //client connected message
-            _client.Ready += () =>
-             ((ISocketMessageChannel)_client.GetChannel(728287924495319120)).SendMessageAsync("Connected");
-
             //when ready, run Ready task
             _client.Ready += Ready;
 
             //Ready task runs until client disconnects. checks newPostURL against temporary OldURL
+            //for some reason Ready task only runs as intended when the two functions are separated
+            //with nested if. assume due to async nature of SendMessage task.
             async Task Ready()
             {
+                Console.WriteLine("Discord bot connected...");
                 while (true)
                 {
                     if (OldURL != Program.newPostURL)
@@ -51,6 +51,7 @@ namespace MainScraper
 
                     }
 
+                    
                     OldURL = Program.newPostURL;
 
                     //arbitrary
@@ -58,7 +59,7 @@ namespace MainScraper
                 }
             }
 
-            //run until close
+            //run until closed by user
             await Task.Delay(-1);
 
         }

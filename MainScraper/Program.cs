@@ -19,7 +19,8 @@ namespace MainScraper
     public static string newPostTitle { get; set; }
 
 
-    //init new reddit client and begin monitoring subreddit
+    //init new reddit client and begin monitoring subreddit. api tokens should be entered into command line arguments.
+    //alternatively, remove command line related args and enter them directly below.
     static void Main(string[] args)
     {
         if (args.Length < 2)
@@ -40,7 +41,8 @@ namespace MainScraper
             Console.WriteLine("Subreddit Fullname: " + sub.Fullname);
             Console.WriteLine("Subreddit Title: " + sub.Title);
             Console.WriteLine("Subreddit Description: " + sub.Description);
-
+            
+            //list of new posts upon connection for MonitorNew to compare to
             List<Post> newPosts = sub.Posts.New;
 
             Console.WriteLine("Retrieved " + newPosts.Count.ToString() + " new posts.");
@@ -51,6 +53,7 @@ namespace MainScraper
             sub.Posts.MonitorNew();
 
         }
+        //start bot after reddit api connection is made
         DiscordBot.RunBot();
     }
 
